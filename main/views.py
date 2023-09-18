@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth import login
 from django.contrib import messages
 from .forms import RegistrationForm
 
 # Create your views here.
+
+def HomePage(request):
+    return HttpResponse("Welcome to home page!")
+
 def Register(request):
     #If the request is a post method (Form submission)
     if request.method == "POST":
@@ -23,4 +28,4 @@ def Register(request):
             return redirect("main:home")
     # If the request is a get request, new form is rendered.
     form = RegistrationForm()
-    return render(request, "main/register.html", {"form": form})
+    return render(request, "registration/register.html", {"form": form})
