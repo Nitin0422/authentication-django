@@ -40,8 +40,8 @@ def Login(request):
             user = authenticate(username = username, password = password)
             if user is not None:
                 login(request, user)
-                messages.info("You are now logged in as {username}")
-                return redirect("main:HomePage")
+                messages.info(request, "You are now logged in as {username}")
+                return redirect("main:home")
             else:
                 messages.error(request, "Invalid credentials")
     form = AuthenticationForm()
