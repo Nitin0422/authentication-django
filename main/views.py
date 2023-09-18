@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .forms import RegistrationForm
@@ -8,7 +8,7 @@ from .forms import RegistrationForm
 # Create your views here.
 
 def HomePage(request):
-    return HttpResponse("Welcome to home page!")
+    return render(request, "registration/home.html", {})
 
 def Register(request):
     #If the request is a post method (Form submission)
@@ -46,3 +46,8 @@ def Login(request):
                 messages.error(request, "Invalid credentials")
     form = AuthenticationForm()
     return render(request, "registration/login.html", {"form": form})
+
+def Logout(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect("main:login")
