@@ -5,11 +5,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from .forms import RegistrationForm
-
+from .models import Student
+from django.contrib.auth.decorators import login_required, permission_required
 # Create your views here.
-
+@login_required(login_url="/login")
 def HomePage(request):
     return render(request, "registration/home.html", {})
+
 
 def Register(request):
     #If the request is a post method (Form submission)
@@ -22,8 +24,8 @@ def Register(request):
             user = form.save()
               #Creating a instance of the group to be assigned
             student_group = Group.objects.get(name='Student')
-            print(student_group)
             user.groups.add(student_group)
+            Student.objects.create(first_name = user.first_name, last_name = user.last_name)
             #calling inbuilt method for login authentication.
             login(request, user)
             #Setting up a message to show in the redirected page.
