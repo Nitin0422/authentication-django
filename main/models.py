@@ -6,7 +6,7 @@ class ClassRoom(models.Model):
     block = models.CharField(max_length=200)
 
 class Student(models.Model):
-    classroom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE)
+    classroom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
 
