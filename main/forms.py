@@ -9,7 +9,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "phone_number", "password1", "password2")
+        fields = ("username", "phone_number", "first_name", "last_name", "password1", "password2")
 
     #Overriding the default save method of the UserCreationForm 
     def save(self, commit = True):
