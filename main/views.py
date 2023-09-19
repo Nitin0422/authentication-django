@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.contrib.auth.models import Group
 from .forms import RegistrationForm
 
 # Create your views here.
@@ -19,6 +20,10 @@ def Register(request):
         if form.is_valid():
             #Calling the save method that will return a user instance with details binded to the user instance
             user = form.save()
+              #Creating a instance of the group to be assigned
+            student_group = Group.objects.get(name='Student')
+            print(student_group)
+            user.groups.add(student_group)
             #calling inbuilt method for login authentication.
             login(request, user)
             #Setting up a message to show in the redirected page.
